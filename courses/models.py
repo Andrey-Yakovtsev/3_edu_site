@@ -22,7 +22,7 @@ class Course(models.Model):
 
 
 class CourseModule(models.Model):
-    course = models.ForeignKey(Course, on_delete=models.SET_NULL, null=True)
+    course = models.ForeignKey(Course, on_delete=models.SET_NULL, null=True, related_name='modules')
     module_title = models.CharField(max_length=180, blank=False)
     start_date = models.DateField(blank=True, null=True)
     end_date = models.DateField(blank=True, null=True)

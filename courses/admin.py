@@ -6,12 +6,12 @@ from .models import CourseCategory, Course, CourseModule
 
 @admin.register(CourseCategory)
 class CourseCategoryAdmin(admin.ModelAdmin):
-    pass
+    list_display = ['category_title', ]
 
 @admin.register(Course)
 class CourseAdmin(admin.ModelAdmin):
-    list_display = ['description', 'start_date', 'end_date']
+    list_display = ['course_title', 'start_date', 'end_date']
 
 @admin.register(CourseModule)
 class CourseModuleAdmin(admin.ModelAdmin):
-    pass
+   list_display = ['module_title', 'start_date', 'end_date']

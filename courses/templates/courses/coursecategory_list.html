@@ -2,12 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Courses list</title>
+    <title>Категории программ обучения</title>
 </head>
 <body>
-<h3>Courses list:</h3>
-{% for course in object_list %}
-<a href="{% url 'courses:course_detail' course.pk %}"><h5> {{ course }} </h5> </a>
+<h3>Категории программ обучения:</h3>
+
+{% for category in object_list %}
+    <ul>
+        <li>
+            <h5> {{ category.category_title }} </h5>
+        </li>
+    </ul>
 {% endfor %}
 </body>
 </html>

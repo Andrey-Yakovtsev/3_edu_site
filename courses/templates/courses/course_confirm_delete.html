@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Курс удален</title>
+</head>
+<body>
+<h3>Удаление курса</h3>
+
+
+<form method="post">{% csrf_token %}
+    <h5>Вы уверены, что хотите удалить "{{ object }}"?</h5>
+    <input type="submit" value="Да, удалить">
+</form>
+</body>
+</html>

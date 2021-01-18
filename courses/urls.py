@@ -1,12 +1,14 @@
 from django.urls import path
 from .views import CategoriesListView, CourseListView, CourseDetailView, ModuleDetailView, CourseCreateView, \
-    CourseUpdateView, CourseDeleteView
+    CourseUpdateView, CourseDeleteView, EmailContactsView, IndexView
 
 app_name = 'courses'
 
 urlpatterns = [
     # path('', CategoriesListView.as_view(), name='categories_list'),
-    path('', CourseListView.as_view(), name='courses_list'),
+    path('', IndexView.as_view(), name='index'),
+    path('list/', CourseListView.as_view(), name='courses_list'),
+    path('contacts/', EmailContactsView.as_view(), name='contacts'),
     path('courses/create/', CourseCreateView.as_view(), name='create_course'),
     path('course/<pk>/', CourseDetailView.as_view(), name='course_detail'),
     path('course/<pk>/edit/', CourseUpdateView.as_view(), name='course_edit'),

@@ -4,7 +4,15 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<body>
-<h3>Index page</h3>
+
+<h1>Index page</h1>
+<h3>
+    <a href="{% url 'courses:courses_list' %}">Посмотеть список курсов</a>
+</h3>
+<h4>
+    <a href="{% url 'courses:contacts' %}">
+        Отправить мыло
+    </a>
+</h4>
 </body>
 </html>

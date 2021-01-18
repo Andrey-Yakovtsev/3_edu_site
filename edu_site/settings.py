@@ -121,3 +121,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+EMAIL_FILE_PATH = '3_edu_site/emails'
+DEFAULT_FROM_EMAIL = 'andrey@tri-sport.ru'
+EMAIL_HOST = 'smtp.yandex.rut'
+EMAIL_HOST_USER = 'andrey@tri-sport.ru'
+EMAIL_HOST_PASSWORD = 'TRImail3311'
+EMAIL_PORT = 465
+EMAIL_USE_TLS = True

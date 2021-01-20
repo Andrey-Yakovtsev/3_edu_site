@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'django_rq',
+
     'accounts.apps.AccountsConfig',
     'courses.apps.CoursesConfig',
 ]
@@ -124,9 +126,17 @@ STATIC_URL = '/static/'
 
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 EMAIL_FILE_PATH = '3_edu_site/emails'
-DEFAULT_FROM_EMAIL = 'andrey@tri-sport.ru'
-EMAIL_HOST = 'smtp.yandex.rut'
-EMAIL_HOST_USER = 'andrey@tri-sport.ru'
-EMAIL_HOST_PASSWORD = 'TRImail3311'
-EMAIL_PORT = 465
-EMAIL_USE_TLS = True
+# DEFAULT_FROM_EMAIL = 'andrey@tri-sport.ru'
+# EMAIL_HOST = 'smtp.yandex.ru'
+# EMAIL_HOST_USER = 'andrey@tri-sport.ru'
+# EMAIL_HOST_PASSWORD = 'TRImail3311'
+# EMAIL_PORT = 465
+# EMAIL_USE_TLS = True
+
+RQ_QUEUES = {
+    'default': {
+        'HOST': 'localhost',
+        'PORT': '6379',
+        'DB': 0
+    }
+}

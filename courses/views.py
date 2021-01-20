@@ -1,3 +1,5 @@
+from datetime import timedelta
+
 from django.conf import settings
 from django.core.mail import send_mail
 from django.http import HttpResponse
@@ -6,9 +8,15 @@ from django.template.context_processors import csrf
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, UpdateView, CreateView, DeleteView
 from django.views import View
+from redis import Redis
+from rq import Queue
 
 from .forms import ContactForm
 from .models import CourseCategory, Course, CourseModule
+
+
+queue = Queue(connection=Redis())
+
 
 
 class IndexView(View):
@@ -55,6 +63,8 @@ class CourseDeleteView(DeleteView):
 class EmailContactsView(View):
     template_name = 'courses/contacts.html'
 
+
+
     def get(self, request, *args, **kwargs):
         context = {}
         context.update(csrf(request))    # Обязательно добавьте в шаблон защитный токен
@@ -66,13 +76,22 @@ class EmailContactsView(View):
         context = {}
         form = ContactForm(request.POST)
         if form.is_valid():
-            email_subject = 'COURSESAPP :: Сообщение через контактную форму '
-            email_body = "С сайта отправлено новое сообщение\n\n" \
-                         "Имя отправителя: %s \n" \
-                         "E-mail отправителя: %s \n\n" \
-                         "Сообщение: \n" \
+            email_subject = 'COURSESAPP :: Contact form message '
+            email_body = "Yuo have new message\n\n" \
+                         "Sender name: %s \n" \
+                         "Sender e-mail : %s \n\n" \
+                         "Message: \n" \
                          "%s " % \
                          (form.cleaned_data['name'], form.cleaned_data['from_email'], form.cleaned_data['message'])
-            send_mail(email_subject, email_body, settings.EMAIL_HOST_USER, ['andrey@tri-sport.ru'], fail_silently=False)
+            from_email = form.cleaned_data['from_email']
+            recipient_list = ['admin@example.com']
+
+            def do_mail_send():
+                return send_mail(email_subject, email_body, from_email, recipient_list, fail_silently=False)
+            job = queue.enqueue(do_mail_send)
+            print(job)
+
+            # send_mail(email_subject, email_body, from_email, recipient_list, fail_silently=False)
+
             return HttpResponse('Your message was sent! Thanks')
         return render(request, template_name=self.template_name, context=context)

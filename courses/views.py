@@ -1,4 +1,4 @@
-from datetime import timedelta
+from datetime import timedelta, datetime
 
 from django.conf import settings
 from django.core.mail import send_mail
@@ -9,14 +9,10 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, UpdateView, CreateView, DeleteView
 from django.views import View
 from redis import Redis
-from rq import Queue
+from edu_site.tasks import do_mail_send
 
 from .forms import ContactForm
 from .models import CourseCategory, Course, CourseModule
-
-
-queue = Queue(connection=Redis())
-
 
 
 class IndexView(View):
@@ -86,12 +82,9 @@ class EmailContactsView(View):
             from_email = form.cleaned_data['from_email']
             recipient_list = ['admin@example.com']
 
-            def do_mail_send():
-                return send_mail(email_subject, email_body, from_email, recipient_list, fail_silently=False)
-            job = queue.enqueue(do_mail_send)
-            print(job)
-
+            do_mail_send.apply_async((email_subject, email_body, from_email, recipient_list),
+                                     countdown=30)
+            print('Email sent!!!!!!')
             # send_mail(email_subject, email_body, from_email, recipient_list, fail_silently=False)
-
             return HttpResponse('Your message was sent! Thanks')
         return render(request, template_name=self.template_name, context=context)

@@ -6,7 +6,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.template.context_processors import csrf
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, UpdateView, CreateView, DeleteView
+from django.views.generic import ListView, DetailView, UpdateView, CreateView, DeleteView, FormView
 from django.views import View
 from redis import Redis
 from edu_site.tasks import do_mail_send
@@ -56,35 +56,27 @@ class CourseDeleteView(DeleteView):
     success_url = reverse_lazy('courses:courses_list')
 
 
-class EmailContactsView(View):
+class EmailContactsView(FormView):
     template_name = 'courses/contacts.html'
+    form_class = ContactForm
 
+    def form_valid(self, form):
+        email_subject = 'COURSESAPP :: Contact form message '
+        email_body = "Yuo have new message\n\n" \
+                     "Sender name: %s \n" \
+                     "Sender e-mail : %s \n\n" \
+                     "Message: \n" \
+                     "%s " % \
+                     (form.cleaned_data['name'], form.cleaned_data['from_email'], form.cleaned_data['message'])
+        from_email = form.cleaned_data['from_email']
+        recipient_list = ['admin@example.com']
 
+        do_mail_send.apply_async((email_subject, email_body, from_email, recipient_list),
+                                 countdown=30)
+        return HttpResponse('Your message was sent! Thanks')
 
     def get(self, request, *args, **kwargs):
         context = {}
-        context.update(csrf(request))    # Обязательно добавьте в шаблон защитный токен
         context['form'] = ContactForm()
 
-        return render(request, template_name=self.template_name, context=context)
-
-    def post(self, request, *args, **kwargs):
-        context = {}
-        form = ContactForm(request.POST)
-        if form.is_valid():
-            email_subject = 'COURSESAPP :: Contact form message '
-            email_body = "Yuo have new message\n\n" \
-                         "Sender name: %s \n" \
-                         "Sender e-mail : %s \n\n" \
-                         "Message: \n" \
-                         "%s " % \
-                         (form.cleaned_data['name'], form.cleaned_data['from_email'], form.cleaned_data['message'])
-            from_email = form.cleaned_data['from_email']
-            recipient_list = ['admin@example.com']
-
-            do_mail_send.apply_async((email_subject, email_body, from_email, recipient_list),
-                                     countdown=30)
-            print('Email sent!!!!!!')
-            # send_mail(email_subject, email_body, from_email, recipient_list, fail_silently=False)
-            return HttpResponse('Your message was sent! Thanks')
         return render(request, template_name=self.template_name, context=context)

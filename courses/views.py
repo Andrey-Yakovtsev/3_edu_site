@@ -1,14 +1,8 @@
-from datetime import timedelta, datetime
-
-from django.conf import settings
-from django.core.mail import send_mail
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from django.template.context_processors import csrf
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, UpdateView, CreateView, DeleteView, FormView
 from django.views import View
-from redis import Redis
 from edu_site.tasks import do_mail_send
 
 from .forms import ContactForm
@@ -62,7 +56,7 @@ class EmailContactsView(FormView):
 
     def form_valid(self, form):
         email_subject = 'COURSESAPP :: Contact form message '
-        email_body = "Yuo have new message\n\n" \
+        email_body = "You have new message\n\n" \
                      "Sender name: %s \n" \
                      "Sender e-mail : %s \n\n" \
                      "Message: \n" \

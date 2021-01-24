@@ -8,3 +8,4 @@
 *.rdb
 /fixtures
 *.pyc
+/accounts/__pycache__

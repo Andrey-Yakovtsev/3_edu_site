@@ -38,6 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'rest_framework',
+    'graphene_django',
+
+
     'accounts.apps.AccountsConfig',
     'courses.apps.CoursesConfig',
 ]
@@ -131,3 +135,12 @@ EMAIL_FILE_PATH = '3_edu_site/emails'
 # EMAIL_HOST_PASSWORD = 'TRImail3311'
 # EMAIL_PORT = 465
 # EMAIL_USE_TLS = True
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10
+}
+
+GRAPHENE = {
+    "SCHEMA": "edu_site.schema.schema"
+}

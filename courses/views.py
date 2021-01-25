@@ -3,7 +3,13 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, UpdateView, CreateView, DeleteView, FormView
 from django.views import View
+from rest_framework.views import APIView
+from rest_framework.response import Response
+
 from edu_site.tasks import do_mail_send
+from django.contrib.auth.models import User
+from courses.serializers import UserSerializer, CourseSerializer, \
+    CourseCategorySerializer  # CourseModuleSerializer, CourseCategorySerializer
 
 from .forms import ContactForm
 from .models import CourseCategory, Course, CourseModule
@@ -26,7 +32,6 @@ class CourseListView(ListView):
 
 class CourseDetailView(DetailView):
     model = Course
-
 
 
 class ModuleDetailView(DetailView):
@@ -74,3 +79,22 @@ class EmailContactsView(FormView):
         context['form'] = ContactForm()
 
         return render(request, template_name=self.template_name, context=context)
+
+
+
+class CourseViewList(APIView):
+    def get(self, request):
+        courses = Course.objects.all()
+        serializer = CourseSerializer(courses, many=True, context={'request': request})
+        return Response(serializer.data)
+
+
+class CategoryViewList(APIView):
+    def get(self, request):
+        categories = CourseCategory.objects.all()
+        serializer = CourseCategorySerializer(categories, many=True, context={'request': request})
+        return Response(serializer.data)
+#
+# class CourseModuleViewList(APIView):
+#     modules = CourseModule.objects.all()
+#     serializer = CourseModuleSerializer(modules, many=True)

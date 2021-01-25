@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import CategoriesListView, CourseListView, CourseDetailView, ModuleDetailView, CourseCreateView, \
-    CourseUpdateView, CourseDeleteView, EmailContactsView, IndexView
+    CourseUpdateView, CourseDeleteView, EmailContactsView, IndexView, CourseViewList, CategoryViewList
 
 app_name = 'courses'
 
@@ -14,4 +14,6 @@ urlpatterns = [
     path('course/<pk>/edit/', CourseUpdateView.as_view(), name='course_edit'),
     path('course/<pk>/delete/', CourseDeleteView.as_view(), name='course_delete'),
     path('course/module/<pk>/', ModuleDetailView.as_view(), name='module_detail'),
+    path('api/courses/', CourseViewList.as_view()),
+    path('api/categories/', CategoryViewList.as_view()),
 ]

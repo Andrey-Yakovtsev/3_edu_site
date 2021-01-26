@@ -72,7 +72,6 @@ class EmailContactsView(FormView):
                      (form.cleaned_data['name'], form.cleaned_data['from_email'], form.cleaned_data['message'])
         from_email = form.cleaned_data['from_email']
         recipient_list = ['admin@example.com']
-
         do_mail_send.apply_async((email_subject, email_body, from_email, recipient_list),
                                  countdown=30)
         return HttpResponse('Your message was sent! Thanks')

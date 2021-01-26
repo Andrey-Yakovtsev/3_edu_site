@@ -3,8 +3,11 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, UpdateView, CreateView, DeleteView, FormView
 from django.views import View
+from rest_framework import status
+from rest_framework.generics import get_object_or_404
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.viewsets import ModelViewSet
 
 from edu_site.tasks import do_mail_send
 from django.contrib.auth.models import User
@@ -88,12 +91,37 @@ class CourseViewList(APIView):
         serializer = CourseSerializer(courses, many=True, context={'request': request})
         return Response(serializer.data)
 
+    def post(self, request):
+        serializer = CourseSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class CategoryViewList(APIView):
-    def get(self, request):
-        categories = CourseCategory.objects.all()
-        serializer = CourseCategorySerializer(categories, many=True, context={'request': request})
-        return Response(serializer.data)
+
+class CourseDetailApiView(ModelViewSet):
+    queryset = Course.objects.all()
+    serializer_class = CourseSerializer
+
+
+class CategoryDetailApiView(ModelViewSet):
+    queryset = CourseCategory.objects.all()
+    serializer_class = CourseCategorySerializer
+
+# class CategoryViewList(APIView):
+#     def get(self, request):
+#         categories = CourseCategory.objects.all()
+#         serializer = CourseCategorySerializer(categories, many=True, context={'request': request})
+#         return Response(serializer.data)
+#
+#     def post(self, request):
+#         serializer = CourseCategorySerializer(data=request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data, status=status.HTTP_201_CREATED)
+#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
 #
 # class CourseModuleViewList(APIView):
 #     modules = CourseModule.objects.all()

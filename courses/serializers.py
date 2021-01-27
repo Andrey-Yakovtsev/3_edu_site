@@ -19,12 +19,16 @@ class CourseCategorySerializer(serializers.HyperlinkedModelSerializer):
 
 
 class CourseSerializer(serializers.HyperlinkedModelSerializer):
-    # category = serializers.HyperlinkedIdentityField(view_name='category')
+    category = serializers.HyperlinkedRelatedField(
+        many=False,
+        read_only=True,
+        view_name='category')
+
     class Meta:
         model = Course
         fields = 'id', 'title', 'description', 'start_date', 'end_date', 'category'
 
-    category = CourseCategorySerializer()
+    # category = CourseCategorySerializer()
     # category = serializers.PrimaryKeyRelatedField(many=False, queryset=CourseCategory.objects.all())
 
 

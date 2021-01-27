@@ -22,7 +22,7 @@ urlpatterns = [
     path('course/<pk>/edit/', CourseUpdateView.as_view(), name='course_edit'),
     path('course/<pk>/delete/', CourseDeleteView.as_view(), name='course_delete'),
     path('course/module/<pk>/', ModuleDetailView.as_view(), name='module_detail'),
-    path('api/', include(router.urls)),
+    path('api/', include((router.urls, 'courses'), namespace='rest-api')),
 
     # path('api/categories/', CategoryViewList.as_view()),
     # path('api/courses/<int:id>', CourseDetailApiView.as_view()),

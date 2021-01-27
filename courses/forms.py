@@ -9,5 +9,3 @@ class ContactForm(forms.Form):
 
     def do_send_mail(self, email_subject, email_body, from_email, recipient_list=['admin@example.com'], fail_silently=False):
         send_mail(self.email_subject, self.message, self.from_email, recipient_list=['admin@example.com'])
-
-

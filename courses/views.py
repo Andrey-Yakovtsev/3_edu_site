@@ -63,17 +63,13 @@ class EmailContactsView(FormView):
     form_class = ContactForm
 
     def form_valid(self, form):
-        email_subject = 'COURSESAPP :: Contact form message '
-        email_body = "You have new message\n\n" \
-                     "Sender name: %s \n" \
-                     "Sender e-mail : %s \n\n" \
-                     "Message: \n" \
-                     "%s " % \
-                     (form.cleaned_data['name'], form.cleaned_data['from_email'], form.cleaned_data['message'])
-        from_email = form.cleaned_data['from_email']
-        recipient_list = ['admin@example.com']
-        do_mail_send.apply_async((email_subject, email_body, from_email, recipient_list),
-                                 countdown=30)
+        form.do_send_mail(
+            form.cleaned_data['subject'],
+            form.cleaned_data['message'],
+            form.cleaned_data['from_email'],
+            recipient_list=['admin@example.com'],
+            fail_silently=False
+        )
         return HttpResponse('Your message was sent! Thanks')
 
     def get(self, request, *args, **kwargs):

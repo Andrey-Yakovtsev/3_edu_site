@@ -5,7 +5,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api-auth', include('rest_framework.urls')),
+    path('api-auth/', include('rest_framework.urls')),
     path('', include('courses.urls', namespace='courses')),
     path('graphql/', GraphQLView.as_view(graphiql=True), name='graphql-api'),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),

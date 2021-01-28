@@ -7,4 +7,4 @@ app = Celery('tasks', broker='pyamqp://guest@localhost//')
 
 @shared_task
 def do_mail_send(email_subject, email_body, from_email, recipient_list, fail_silently=False):
-    ContactForm.do_send_mail(email_subject, email_body, from_email, recipient_list, fail_silently=False)
+    ContactForm.do_send_mail(email_subject, email_body, from_email, recipient_list, fail_silently=False).apply_async(countdown=10)

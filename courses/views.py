@@ -12,7 +12,7 @@ from rest_framework.viewsets import ModelViewSet
 from edu_site.tasks import do_mail_send
 from django.contrib.auth.models import User
 from courses.serializers import UserSerializer, CourseSerializer, \
-    CourseCategorySerializer  # CourseModuleSerializer, CourseCategorySerializer
+    CourseCategorySerializer, CourseModuleSerializer  # CourseModuleSerializer, CourseCategorySerializer
 
 from .forms import ContactForm
 from .models import CourseCategory, Course, CourseModule
@@ -63,13 +63,7 @@ class EmailContactsView(FormView):
     form_class = ContactForm
 
     def form_valid(self, form):
-        form.do_send_mail(
-            form.cleaned_data['subject'],
-            form.cleaned_data['message'],
-            form.cleaned_data['from_email'],
-            recipient_list=['admin@example.com'],
-            fail_silently=False
-        )
+        form.do_send_mail()
         return HttpResponse('Your message was sent! Thanks')
 
     def get(self, request, *args, **kwargs):
@@ -103,21 +97,7 @@ class CategoryDetailApiView(ModelViewSet):
     queryset = CourseCategory.objects.all()
     serializer_class = CourseCategorySerializer
 
-# class CategoryViewList(APIView):
-#     def get(self, request):
-#         categories = CourseCategory.objects.all()
-#         serializer = CourseCategorySerializer(categories, many=True, context={'request': request})
-#         return Response(serializer.data)
-#
-#     def post(self, request):
-#         serializer = CourseCategorySerializer(data=request.data)
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response(serializer.data, status=status.HTTP_201_CREATED)
-#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-
-#
-# class CourseModuleViewList(APIView):
-#     modules = CourseModule.objects.all()
-#     serializer = CourseModuleSerializer(modules, many=True)
+class CourseModuleApiView(ModelViewSet):
+    queryset = CourseModule.objects.all()
+    serializer_class = CourseModuleSerializer

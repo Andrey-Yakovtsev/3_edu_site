@@ -2,14 +2,16 @@ from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 
 from .views import CategoriesListView, CourseListView, CourseDetailView, ModuleDetailView, CourseCreateView, \
-    CourseUpdateView, CourseDeleteView, EmailContactsView, IndexView, CourseViewList, \
-    CourseDetailApiView, CategoryDetailApiView
+    CourseUpdateView, CourseDeleteView, EmailContactsView, IndexView, \
+    CourseDetailApiView, CategoryDetailApiView, CourseModuleApiView
 
 app_name = 'courses'
 
 router = DefaultRouter()
 router.register('courses', CourseDetailApiView)
 router.register('categories', CategoryDetailApiView)
+router.register('modules', CourseModuleApiView)
+
 
 
 urlpatterns = [
@@ -22,8 +24,6 @@ urlpatterns = [
     path('course/<pk>/edit/', CourseUpdateView.as_view(), name='course_edit'),
     path('course/<pk>/delete/', CourseDeleteView.as_view(), name='course_delete'),
     path('course/module/<pk>/', ModuleDetailView.as_view(), name='module_detail'),
-    path('api/', include((router.urls, 'courses'), namespace='rest-api')),
+    path('api/', include(router.urls)),
 
-    # path('api/categories/', CategoryViewList.as_view()),
-    # path('api/courses/<int:id>', CourseDetailApiView.as_view()),
 ]

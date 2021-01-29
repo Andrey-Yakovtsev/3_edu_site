@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Reg Teacher</title>
+</head>
+<body>
+{% for teacher in object_list %}
+Name: {{ teacher.firstname }}
+Lastname {{ teacher.lastname }}
+{% endfor %}
+</body>
+</html>

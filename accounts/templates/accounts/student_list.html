@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Students list</title>
+</head>
+<body>
+{% for student in object_list %}
+Name: {{ student.firstname }}
+Lastname {{ student.lastname }}
+{% endfor %}
+</body>
+</html>

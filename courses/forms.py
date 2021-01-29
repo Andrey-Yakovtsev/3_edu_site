@@ -9,12 +9,9 @@ class ContactForm(forms.Form):
     recipient_list = ['admin@example.com']
 
     def do_send_mail(self):
-        send_mail(self.cleaned_data['subject'], self.cleaned_data['message'], self.cleaned_data['from_email'], self.recipient_list) #.apply_async(countdown=10)
-
-    # def do_send_mail(self, email_subject, message, from_email, recipient_list, fail_silently=False):
-    #     email_subject = 'COURSESAPP :: Contact form message '
-    #     email_body = f'You have new message: ' \
-    #                  f'Sender e-mail : {from_email}, ' \
-    #                  f'Message: {message}'
-    #     recipient_list = ['admin@example.com']
-    #     send_mail(self.email_subject, self.message, self.from_email, recipient_list).apply_async(countdown=10)
+        send_mail(
+            self.cleaned_data['subject'],
+            self.cleaned_data['message'],
+            self.cleaned_data['from_email'],
+            self.recipient_list
+        )

@@ -69,9 +69,7 @@ class EmailContactsView(FormView):
     def get(self, request, *args, **kwargs):
         context = {}
         context['form'] = ContactForm()
-
         return render(request, template_name=self.template_name, context=context)
-
 
 
 class CourseViewList(APIView):

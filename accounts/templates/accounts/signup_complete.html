@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registered</title>
+</head>
+<body>
+<h1>
+    Welcome {{ new_user.first_name }}!
+    You are successfully registered.
+    Now please
+    <a href="{% url 'accounts:login' %}">Login</a>
+</h1>
+</body>
+</html>

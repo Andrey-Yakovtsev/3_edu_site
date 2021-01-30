@@ -8,8 +8,6 @@ from rest_framework.generics import get_object_or_404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
-
-from edu_site.tasks import do_mail_send
 from django.contrib.auth.models import User
 from courses.serializers import UserSerializer, CourseSerializer, \
     CourseCategorySerializer, CourseModuleSerializer  # CourseModuleSerializer, CourseCategorySerializer

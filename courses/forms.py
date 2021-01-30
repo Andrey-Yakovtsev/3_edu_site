@@ -1,5 +1,5 @@
 from django import forms
-from django.core.mail import send_mail
+from edu_site.tasks import mail_send_task
 
 class ContactForm(forms.Form):
     from_email = forms.EmailField(required=True, label='Контактный e-mail')
@@ -9,9 +9,10 @@ class ContactForm(forms.Form):
     recipient_list = ['admin@example.com']
 
     def do_send_mail(self):
-        send_mail(
+        mail_send_task.apply_async((
             self.cleaned_data['subject'],
             self.cleaned_data['message'],
             self.cleaned_data['from_email'],
             self.recipient_list
-        )
+        ), countdown=30)
+

@@ -64,11 +64,6 @@ class EmailContactsView(FormView):
         form.do_send_mail()
         return HttpResponse('Your message was sent! Thanks')
 
-    def get(self, request, *args, **kwargs):
-        context = {}
-        context['form'] = ContactForm()
-        return render(request, template_name=self.template_name, context=context)
-
 
 class CourseViewList(APIView):
     def get(self, request):

@@ -4,8 +4,6 @@ from django.urls import reverse
 
 
 class Student(models.Model):
-    firstname = models.CharField(max_length=30, blank=False, null=False)
-    lastname = models.CharField(max_length=30, blank=False, null=False)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     is_active = models.BooleanField(blank=True, null=True, default=True)
 
@@ -17,8 +15,6 @@ class Student(models.Model):
 
 
 class Teacher(models.Model):
-    firstname = models.CharField(max_length=30, blank=False, null=False)
-    lastname = models.CharField(max_length=30, blank=False, null=False)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     is_active = models.BooleanField(blank=True, null=True, default=True)
 

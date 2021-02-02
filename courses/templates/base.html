@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock title %}</title>
+    <link rel="stylesheet" href="/static/front/main.css">
+</head>
+
+<body>
+{% block intro %}
+{% endblock intro %}
+
+<header>
+    {% block header %}
+        {% if request.user.is_authenticated %}
+    <h2> Hello, {{ user.first_name }} {{ user.last_name }}</h2>
+            <h6>
+    <a href="{% url 'accounts:logout' %}">Выйти</a>
+</h6>
+            <h3> You can now access to:</h3>
+                    <h4>
+    <a href="/api">
+        REST Api
+    </a>
+</h4>
+<h4>
+    <a href="{% url 'graphql-api' %}">
+        GRAPHQL Api
+    </a>
+</h4>
+<h4>
+    <a href="{% url 'token_obtain_pair' %}">
+        Get JWT Token
+    </a>
+</h4>
+            <h4>
+    <a href="{% url 'accounts:token_get' %}">
+        ISSUE PERSONAL JWT Token
+    </a>
+</h4>
+            <br>
+            <hr>
+{% else %}
+    <h3> You are not logged in. Please <a href="{% url 'accounts:login' %}" h> LOGIN</a></h3>
+{% endif %}
+    {% endblock header %}
+</header>
+
+
+
+{% block section %}
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
+
+
+
+</body>
+</html>

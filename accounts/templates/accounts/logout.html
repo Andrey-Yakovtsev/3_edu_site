@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block intro %}
+    {% if request.user.is_authenticated %}
+    <h2> Hello, {{ user.first_name }} {{ user.last_name }}</h2>
+<p> Are you sure to logout?</p>
+        <a href="{% url 'accounts:logout' %}" onClick="document.getElementById('logoutform').submit()"><button type="button">Logout</button></a>
+        <form method="POST" action="{% url 'accounts:logout' %}">
+{% csrf_token %}
+<input type="hidden">
+</form>
+            {% endif %}
+{% endblock intro %}

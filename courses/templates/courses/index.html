@@ -1,12 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>{% block title %}Course Platformer {% endblock title %}</title>
 </head>
+{% block intro %}
+    <h2> Welcome to CorsePlatformer</h2>
+{% endblock intro %}
 
-<h1>Index page</h1>
-<h3>
+<section>
+    {% block section %}
+    <h3>
     <a href="{% url 'accounts:teacher_create' %}">Зарегистрировать преподавателя</a>
 </h3>
 <h3>
@@ -15,9 +18,7 @@
 <h3>
     <a href="{% url 'accounts:student_create' %}">Зарегистрировать студента</a>
 </h3>
-<h3>
-    <a href="{% url 'courses:courses_list' %}">ВОЙТИ</a>
-</h3>
+
 <h3>
     <a href="{% url 'courses:courses_list' %}">Посмотеть список курсов</a>
 </h3>
@@ -26,21 +27,15 @@
         Отправить мыло
     </a>
 </h4>
-<h4>
-    <a href="/api">
-        REST Api
-    </a>
-</h4>
-<h4>
-    <a href="{% url 'graphql-api' %}">
-        GRAPHQL Api
-    </a>
-</h4>
-<h4>
-    <a href="{% url 'token_obtain_pair' %}">
-        Get JWT Token
-    </a>
-</h4>
+    {% endblock section %}
+</section>
 
-</body>
-</html>
+
+<aside>...</aside>
+
+
+<footer>
+    {% block footer %}
+
+    {% endblock footer %}
+</footer>

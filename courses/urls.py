@@ -14,6 +14,7 @@ router.register('modules', CourseModuleApiView)
 
 
 
+
 urlpatterns = [
     # path('', CategoriesListView.as_view(), name='categories_list'),
     path('', IndexView.as_view(), name='index'),

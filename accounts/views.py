@@ -1,11 +1,12 @@
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, ListView
 from django.views.generic.edit import CreateView
+from rest_framework_simplejwt import tokens
 
-from .forms import LoginForm, UserRegistrationForm
+from .forms import LoginForm, UserRegistrationForm, UpdateTokenForm
 from .models import Teacher, Student
 
 
@@ -28,8 +29,14 @@ def user_login(request):
                 return HttpResponse('Invalid login')
     else:
         form = LoginForm()
-    return render(request, 'accounts/login.html', {'form': form})
+    return render(request, 'accounts/templates/registration/login.html', {'form': form})
 
+def user_logout(request):
+    if request.method == "POST":
+        logout(request)
+        return redirect('/')
+    else:
+        return render(request, 'accounts/logout.html')
 
 def register_teacher(request):
     if request.method == 'POST':
@@ -84,3 +91,31 @@ class TeacherList(ListView):
 
 class StudentList(ListView):
     model = Student
+
+
+def get_user_token(request):
+    url = 'http://127.0.0.1:8000/api/token/'
+    headers = {
+        'Content-Type': 'application/json'
+    }
+    if request.method == 'POST':
+        get_token_form = LoginForm(request.POST)
+        if get_token_form.is_valid():
+            response = request.post(url, data = {
+                'username': get_token_form.cleaned_data['username'],
+            'password': get_token_form.cleaned_data['password']})
+            print(response.json)
+            return render(request,
+                          'accounts/tokenize_result.html',
+                          {'token': response.json})
+    else:
+        get_token_form = LoginForm()
+        # token = tokens.Token.objects.filter(user_id=user.id).all()
+
+    return render(request,
+                  'accounts/tokenize.html',
+                  {'form': get_token_form,
+                   'token': token})
+
+def update_user_token():
+    pass

@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Tokenize{% endblock title %}</title>
+</head>
+
+{% block header %}
+{% endblock header%}
+
+{% block section %}
+    <h2>Get new TOKEN</h2>
+
+    <form method="post">{% csrf_token %}
+    {{ get_token_form.as_p }}
+    <input type="submit" value="Get token">
+</form>
+
+    <br>
+
+    <h2>Or UPDATE existing TOKEN</h2>
+    <p> Yuor token is: {{ token }}</p>
+    <form method="post">{% csrf_token %}
+    {{ update_token_form.as_p }}
+    <input type="submit" value="Update token">
+</form>
+
+{% endblock section %}

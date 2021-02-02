@@ -5,6 +5,7 @@ from django.views.generic import ListView, DetailView, UpdateView, CreateView, D
 from django.views import View
 from rest_framework import status
 from rest_framework.generics import get_object_or_404
+from rest_framework.permissions import IsAdminUser
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
@@ -92,3 +93,4 @@ class CategoryDetailApiView(ModelViewSet):
 class CourseModuleApiView(ModelViewSet):
     queryset = CourseModule.objects.all()
     serializer_class = CourseModuleSerializer
+

@@ -118,27 +118,3 @@ def get_user_token(request):
     return render(request,
                   'accounts/tokenize.html',
                   {'form': get_token_form})
-
-def refresh_user_token():
-    url = 'http://127.0.0.1:8000/api/token/refresh'
-    headers = {
-        'Content-Type': 'application/json'
-    }
-    if request.method == 'POST':
-        refresh_token_form = UpdateTokenForm(request.POST)
-        if refresh_token_form.is_valid():
-            response = requests.post(url, data={
-                'refresh': refresh_token_form.cleaned_data['refresh']})
-
-            return render(request,
-                          'accounts/tokenize_result.html',
-                          {'token': response.json(),
-                           'form': refresh_token_form})
-    else:
-        refresh_token_form = UpdateTokenForm()
-
-    return render(request,
-                  'accounts/tokenize.html',
-                  {'refresh_form': refresh_token_form,
-                   }
-                  )

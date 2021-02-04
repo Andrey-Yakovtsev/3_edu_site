@@ -1,3 +1,4 @@
+import requests
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
@@ -100,22 +101,44 @@ def get_user_token(request):
     }
     if request.method == 'POST':
         get_token_form = LoginForm(request.POST)
+        refresh_token_form = UpdateTokenForm(request.POST)
+
         if get_token_form.is_valid():
-            response = request.post(url, data = {
+            response = requests.post(url, data = {
                 'username': get_token_form.cleaned_data['username'],
-            'password': get_token_form.cleaned_data['password']})
-            print(response.json)
+                'password': get_token_form.cleaned_data['password']})
+
             return render(request,
                           'accounts/tokenize_result.html',
-                          {'token': response.json})
+                          {'token': response.json(),
+                           'form': refresh_token_form})
     else:
         get_token_form = LoginForm()
-        # token = tokens.Token.objects.filter(user_id=user.id).all()
 
     return render(request,
                   'accounts/tokenize.html',
-                  {'form': get_token_form,
-                   'token': token})
+                  {'form': get_token_form})
 
-def update_user_token():
-    pass
+def refresh_user_token():
+    url = 'http://127.0.0.1:8000/api/token/refresh'
+    headers = {
+        'Content-Type': 'application/json'
+    }
+    if request.method == 'POST':
+        refresh_token_form = UpdateTokenForm(request.POST)
+        if refresh_token_form.is_valid():
+            response = requests.post(url, data={
+                'refresh': refresh_token_form.cleaned_data['refresh']})
+
+            return render(request,
+                          'accounts/tokenize_result.html',
+                          {'token': response.json(),
+                           'form': refresh_token_form})
+    else:
+        refresh_token_form = UpdateTokenForm()
+
+    return render(request,
+                  'accounts/tokenize.html',
+                  {'refresh_form': refresh_token_form,
+                   }
+                  )

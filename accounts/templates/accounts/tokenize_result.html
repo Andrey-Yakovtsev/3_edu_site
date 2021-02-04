@@ -8,6 +8,19 @@
 {% endblock header%}
 
 {% block section %}
-    <h2>Your new token is: {{ token }}</h2>
+    <h2>Your new token is: {{ token.access}}</h2>
+<hr>
 
+    <h3>To refresh token use this:</h3>
+    <p>{{ token.refresh }}</p>
+
+    <h2>Refresh TOKEN</h2>
+
+    <form method="post">
+        {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Refresh token">
+</form>
+
+    <p> Return to <a href="{% url 'courses:index' %}">INDEX</a></p>
 {% endblock section %}

@@ -10,18 +10,22 @@
 {% block section %}
     <h2>Get new TOKEN</h2>
 
-    <form method="post">{% csrf_token %}
-    {{ get_token_form.as_p }}
+    <form method="post">
+        {% csrf_token %}
+    {{ form}}
     <input type="submit" value="Get token">
 </form>
 
-    <br>
+    <hr>
 
     <h2>Or UPDATE existing TOKEN</h2>
-    <p> Yuor token is: {{ token }}</p>
+    <p> Your current token is: {{ token.access }}</p>
+    <p>To refresh token use "resfresh token"</p>
+    {{ token.refresh}}
+
     <form method="post">{% csrf_token %}
-    {{ update_token_form.as_p }}
-    <input type="submit" value="Update token">
+    {{ form }}
+    <input type="submit" value="Refresh token">
 </form>
 
 {% endblock section %}

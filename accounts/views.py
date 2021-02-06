@@ -88,10 +88,12 @@ class StudentDetails(DetailView):
 
 class TeacherList(ListView):
     model = Teacher
+    queryset = Teacher.objects.select_related()
 
 
 class StudentList(ListView):
     model = Student
+    queryset = Student.objects.select_related()
 
 
 def get_user_token(request):

@@ -81,7 +81,7 @@ class CourseViewList(APIView):
 
 
 class CourseDetailApiView(ModelViewSet):
-    queryset = Course.objects.all()
+    queryset = Course.objects.prefetch_related('modules')
     serializer_class = CourseSerializer
 
 

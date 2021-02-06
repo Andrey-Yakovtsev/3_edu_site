@@ -45,12 +45,14 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'graphene_django',
 
-
     'accounts.apps.AccountsConfig',
     'courses.apps.CoursesConfig',
 ]
 
+
+
 MIDDLEWARE = [
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -154,3 +156,11 @@ REST_FRAMEWORK = {
 GRAPHENE = {
     "SCHEMA": "edu_site.schema.schema"
 }
+
+if DEBUG:
+    INSTALLED_APPS += [
+        'debug_toolbar',
+    ]
+    INTERNAL_IPS = [
+        '127.0.0.1',
+    ]

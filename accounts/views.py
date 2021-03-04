@@ -1,11 +1,8 @@
 import requests
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from django.urls import reverse_lazy
 from django.views.generic import DetailView, ListView
-from django.views.generic.edit import CreateView
-from rest_framework_simplejwt import tokens
 
 from .forms import LoginForm, UserRegistrationForm, UpdateTokenForm
 from .models import Teacher, Student

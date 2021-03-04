@@ -37,7 +37,8 @@ class Query(graphene.ObjectType):
 
 
     def resolve_all_courses(self, info):
-        return Course.objects.prefetch_related().all()
+        # return Course.objects.prefetch_related().all()
+        return Course.objects.all()
 
     def resolve_all_categories(self, info):
         return CourseCategory.objects.all()

@@ -1,15 +1,27 @@
 from django.contrib import admin
+from django.forms import BaseInlineFormSet
 
 from .models import Student, Teacher
 
+class MembershipInlineFormSet(BaseInlineFormSet):
+
+    def get_queryset(self):
+        qs = super(MembershipInlineFormSet, self).get_queryset()
+        # return qs.prefetch_related('course')
+        return qs.filter()
 
 class MembershipInline(admin.TabularInline):
+    # model = Teacher.course.through
     model = Teacher.course.through
-    def get_queryset(self, request):
-        qs = super(MembershipInline, self).get_queryset(request)
-        # print(qs.values())
-        # print(qs.prefetch_related('course').values())
-        return qs.prefetch_related('course')
+    formset = MembershipInlineFormSet
+    extra = 0
+
+
+# class MembershipInline(admin.TabularInline):
+#     model = Teacher.course.through
+#     def get_queryset(self, request):
+#         qs = super(MembershipInline, self).get_queryset(request)
+#         return qs.prefetch_related('course')
 
 
 

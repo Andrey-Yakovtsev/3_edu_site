@@ -47,6 +47,7 @@ INSTALLED_APPS = [
 
     'accounts.apps.AccountsConfig',
     'courses.apps.CoursesConfig',
+    'frontend.apps.FrontendConfig',
 ]
 
 

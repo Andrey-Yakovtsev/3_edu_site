@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}Course Platformer {% endblock title %}</title>
@@ -9,6 +10,7 @@
 
 <section>
     {% block section %}
+        <script src="{% static 'front/main.js' %}"></script>
     <h3>
     <a href="{% url 'accounts:teacher_create' %}">Зарегистрировать преподавателя</a>
 </h3>

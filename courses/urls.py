@@ -1,9 +1,11 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 
-from .views import CategoriesListView, CourseListView, CourseDetailView, ModuleDetailView, CourseCreateView, \
+from .views import CourseListView, CourseDetailView, ModuleDetailView, CourseCreateView, \
     CourseUpdateView, CourseDeleteView, EmailContactsView, IndexView, \
-    CourseDetailApiView, CategoryDetailApiView, CourseModuleApiView
+    CourseDetailApiView, CategoryDetailApiView, CourseModuleApiView, JSFrontView
+
+from accounts.views import UserApiView
 
 app_name = 'courses'
 
@@ -11,13 +13,12 @@ router = DefaultRouter()
 router.register('courses', CourseDetailApiView)
 router.register('categories', CategoryDetailApiView)
 router.register('modules', CourseModuleApiView)
-
-
+router.register('users', UserApiView)
 
 
 urlpatterns = [
-    # path('', CategoriesListView.as_view(), name='categories_list'),
     path('', IndexView.as_view(), name='index'),
+    path('front/', JSFrontView.as_view(), name='jsview'),
     path('list/', CourseListView.as_view(), name='courses_list'),
     path('contacts/', EmailContactsView.as_view(), name='contacts'),
     path('courses/create/', CourseCreateView.as_view(), name='create_course'),

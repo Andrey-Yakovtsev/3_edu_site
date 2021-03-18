@@ -14,5 +14,5 @@ function getModulesInfo(cb) {
       .then((data) => cb(data));
 }
 
-getCoursesInfo(console.log);
+getCoursesInfo(console.log.bind(console, 'getCoursesInfo'));
 getModulesInfo(console.log.bind(console, 'getModulesInfo'));

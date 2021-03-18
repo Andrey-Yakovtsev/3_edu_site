@@ -10,25 +10,28 @@
 
 <section>
     {% block section %}
-        <script src="{% static 'front/main.js' %}"></script>
-    <h3>
-    <a href="{% url 'accounts:teacher_create' %}">Зарегистрировать преподавателя</a>
-</h3>
-<h3>
-    <a href="{% url 'accounts:teachers_list' %}">Список преподавателей</a>
-</h3>
-<h3>
-    <a href="{% url 'accounts:student_create' %}">Зарегистрировать студента</a>
-</h3>
+        <h3>
+            <a href="{% url 'accounts:teacher_create' %}">Зарегистрировать преподавателя</a>
+        </h3>
+        <h3>
+            <a href="{% url 'accounts:students_list' %}">Список студентов</a>
+        </h3>
 
-<h3>
-    <a href="{% url 'courses:courses_list' %}">Посмотеть список курсов</a>
-</h3>
-<h4>
-    <a href="{% url 'courses:contacts' %}">
-        Отправить мыло
-    </a>
-</h4>
+        <h3>
+            <a href="{% url 'accounts:teachers_list' %}">Список преподавателей</a>
+        </h3>
+        <h3>
+            <a href="{% url 'accounts:student_create' %}">Зарегистрировать студента</a>
+        </h3>
+
+        <h3>
+            <a href="{% url 'courses:courses_list' %}">Посмотеть список курсов</a>
+        </h3>
+        <h4>
+            <a href="{% url 'courses:contacts' %}">
+                Отправить мыло
+            </a>
+        </h4>
     {% endblock section %}
 </section>
 

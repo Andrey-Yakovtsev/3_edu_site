@@ -9,8 +9,7 @@ from rest_framework.permissions import IsAdminUser
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
-from django.contrib.auth.models import User
-from courses.serializers import UserSerializer, CourseSerializer, \
+from courses.serializers import CourseSerializer, \
     CourseCategorySerializer, CourseModuleSerializer  # CourseModuleSerializer, CourseCategorySerializer
 
 from .forms import ContactForm
@@ -19,6 +18,13 @@ from .models import CourseCategory, Course, CourseModule
 
 class IndexView(View):
     template_name = 'courses/index.html'
+    def get(self, request, *args, **kwargs):
+        context = {}
+        return render(request, template_name=self.template_name, context=context)
+
+
+class JSFrontView(View):
+    template_name = 'courses/jsviewpage.html'
     def get(self, request, *args, **kwargs):
         context = {}
         return render(request, template_name=self.template_name, context=context)

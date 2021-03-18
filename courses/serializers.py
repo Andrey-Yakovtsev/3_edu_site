@@ -1,13 +1,6 @@
-from django.contrib.auth.models import User
 from courses.models import Course, CourseCategory, CourseModule
 
 from rest_framework import serializers
-
-
-class UserSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = User
-        fields = ['username', 'email', 'groups']
 
 
 class CourseCategorySerializer(serializers.HyperlinkedModelSerializer):

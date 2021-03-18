@@ -1,12 +1,17 @@
 import requests
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views.generic import DetailView, ListView
+from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework.viewsets import ModelViewSet
 
 from .forms import LoginForm, UserRegistrationForm, UpdateTokenForm
 from .models import Teacher, Student
-
+from .serializers import UserSerializer
 
 
 def user_login(request):
@@ -117,3 +122,7 @@ def get_user_token(request):
     return render(request,
                   'accounts/tokenize.html',
                   {'form': get_token_form})
+
+class UserApiView(ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer

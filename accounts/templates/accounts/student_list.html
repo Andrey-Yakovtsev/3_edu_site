@@ -6,8 +6,10 @@
 </head>
 <body>
 {% for student in object_list %}
-Name: {{ student.first_name }}
-Lastname {{ student.last_name }}
+    <li>
+        <p>Name: {{ student.user.first_name }}</p>
+        <p>Lastname {{ student.user.last_name }}</p>
+    </li>
 {% endfor %}
 </body>
 </html>

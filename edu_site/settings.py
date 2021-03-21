@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'graphene_django',
+    'corsheaders',
 
     'accounts.apps.AccountsConfig',
     'courses.apps.CoursesConfig',
@@ -56,6 +57,7 @@ MIDDLEWARE = [
     'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -168,3 +170,7 @@ if DEBUG:
     INTERNAL_IPS = [
         '127.0.0.1',
     ]
+
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',
+]

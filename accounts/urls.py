@@ -1,8 +1,8 @@
 from django.urls import path, include
-from rest_framework.routers import DefaultRouter
 
 from .views import StudentDetails, TeacherDetails, StudentList, TeacherList, \
     register_student, register_teacher, get_user_token
+
 app_name = 'accounts'
 
 

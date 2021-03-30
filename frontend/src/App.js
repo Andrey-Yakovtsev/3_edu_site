@@ -18,7 +18,6 @@ class App extends React.Component {
             .then((response) => this.setState({courses: response.data}))
             .catch(error => console.log(error)
             )
-        console.log('courses ==>', this.state.typeof) //пытался понять что там в Стейте сохранилось - пока ничего
     }
 
     render() {

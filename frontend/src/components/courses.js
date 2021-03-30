@@ -6,6 +6,7 @@ const CourseItem = ({item}) => {
             <td>{item.id}</td>
             <td>{item.title}</td>
             <td>{item.description}</td>
+            <td>{item.start_date}</td>
         </tr>
     )
 }
@@ -17,8 +18,10 @@ const CourseList = ({items}) => {
                 <th>ID</th>
                 <th>TITLE</th>
                 <th>DESCRIPTION</th>
+                <th>STARTED AT</th>
+
             </tr>
-            {/*{items.map((item) => <CourseItem item={item} />)}*/}
+            {items.map((item) => <CourseItem item={item} />)}
         </table>
     )
 }

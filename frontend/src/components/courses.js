@@ -18,7 +18,7 @@ const CourseList = ({items}) => {
                 <th>TITLE</th>
                 <th>DESCRIPTION</th>
             </tr>
-            {items.map((item) => <CourseItem item={item} />)}
+            {/*{items.map((item) => <CourseItem item={item} />)}*/}
         </table>
     )
 }

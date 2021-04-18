@@ -1,10 +1,20 @@
-import {useState, useEffect} from "react";
+import React, {useState, useEffect} from "react";
 import Header from "./components/Header";
 import axios from "axios";
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 
 function App() {
-
+    const CourseItem = ({item}) => {
+    return (
+        <tr>
+            <td>{item.id}</td>
+            <td>{item.title}</td>
+            <td>{item.description}</td>
+            <td>{item.start_date}</td>
+        </tr>
+    )
+}
     const [courses, setCourses] = useState([])
 
     useEffect(() => {
@@ -19,6 +29,7 @@ function App() {
     return (
         <div className='container'>
             <Header title = 'These are our courses' />
+            <hr/>
             <ul>
                 {courses.map(course => (
                     <li key={course.id}>

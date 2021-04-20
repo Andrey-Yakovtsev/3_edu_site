@@ -1,10 +1,24 @@
-import {useEffect, useState} from "react";
+import {
+    Navbar,
+    Nav,
+    NavDropdown,
+    Form,
+    FormControl,
+    Button
+} from "react-bootstrap";
+
+import "bootstrap/dist/css/bootstrap.min.css";
+import React, {useEffect, useState} from "react";
 import axios from "axios";
+import {Link, BrowserRouter as Router, Switch, Route} from "react-router-dom";
+import CourseDetail from "./CourseDetail";
 
 
 const Header = () => {
 
     const [courses, setCourses]  = useState([])
+    const [categories, setCategories]  = useState([])
+
 
     useEffect(() => {
         axios({
@@ -15,43 +29,54 @@ const Header = () => {
         })
     }, [])
 
+    useEffect(() => {
+        axios({
+            method: 'GET',
+            url: 'http://127.0.0.1:8000/api/categories/'
+        }).then(response => {
+            setCategories(response.data)
+        })
+    }, [])
+
     return (
-        <nav className="navbar navbar-expand-lg navbar-light bg-light">
-            <div className="container-fluid">
-                <a className="navbar-brand" href="#">Navbar</a>
-                <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
-                        aria-label="Toggle navigation">
-                    <span className="navbar-toggler-icon"></span>
-                </button>
-                <div className="collapse navbar-collapse" id="navbarNavDropdown">
-                    <ul className="navbar-nav">
-                        <li className="nav-item">
-                            <a className="nav-link active" aria-current="page" href="#">Home</a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href="#">Features</a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href="#">Pricing</a>
-                        </li>
-                        <li className="nav-item dropdown">
-                            <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-                               data-bs-toggle="dropdown" aria-expanded="false">
-                                Dropdown link
-                            </a>
-                            <ul className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                {courses.map(course =>
-                                <li><a className="dropdown-item" href="#" key={course.id}>{course.title}</a></li>
-                                )}
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    )
+        <Router>
+            <Navbar bg="light" expand="lg">
+                <Navbar.Brand href="#home">Educational Platform</Navbar.Brand>
+                <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                <Navbar.Collapse id="basic-navbar-nav">
+                    <Nav className="mr-auto">
+                        <Nav.Link href="#home">Home</Nav.Link>
+                        <NavDropdown title="Categories" id="basic-nav-dropdown">
+                            {categories.map(category => (
+                                <NavDropdown.Item >
+                                    <Link to={{pathname: `/category/${category.id}/`, fromDashboard: false}}>
+                                        {category.title}
+                                    </Link>
+                                </NavDropdown.Item>
+                            ))}
+                        </NavDropdown>
+                        <NavDropdown title="Courses" id="basic-nav-dropdown">
+                            {courses.map(course => (
+                                <NavDropdown.Item >
+                                    <Link to={{pathname: `/course/${course.id}/`, fromDashboard: false}}>
+                                        {course.title}
+                                    </Link>
+                                </NavDropdown.Item>
+                            ))}
+                        </NavDropdown>
+                    </Nav>
+                    <Form inline>
+                        <FormControl type="text" placeholder="Search" className="mr-sm-2" />
+                        <Button variant="outline-success">Search</Button>
+                    </Form>
+                </Navbar.Collapse>
+            </Navbar>
+
+            {/*<Switch>*/}
+            {/*    <Route exact path='/course/${course.id}/' component={CourseDetail} />*/}
+            {/*</Switch>*/}
+        </Router>
+    );
 }
 
-
-export default Header
+export default Header;

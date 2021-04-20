@@ -1,36 +1,20 @@
 import React, {useState, useEffect} from "react";
 import Header from "./components/Header";
-import axios from "axios";
+import CourseDetail from "./components/CourseDetail";
 import 'bootstrap/dist/css/bootstrap.min.css'
-import {Link, BrowserRouter as Router, Switch} from "react-router-dom";
+import {Link, BrowserRouter as Router, Switch, Route} from "react-router-dom";
 
 function App() {
 
-    const [courses, setCourses] = useState([])
-
-    useEffect(() => {
-        axios({
-            method: 'GET',
-            url: 'http://127.0.0.1:8000/api/courses/'
-        }).then(response => {
-            setCourses(response.data)
-        })
-    }, [])
-
     return (
         <div className='container'>
-            <Header title = 'These are our courses' />
-            <hr/>
+
             <Router>
-                <ul>
-                    {courses.map(course => (
-                        <li>
-                            <Link to={{pathname: `/course/${course.id}/`, fromDashboard: false}}>
-                                {course.title}
-                            </Link>
-                        </li>
-                    ))}
-                </ul>
+                <Switch>
+                    <Header />
+                    <Route path='/course/:id' exact={CourseDetail} />
+                    <CourseDetail/>
+                </Switch>
             </Router>
         </div>
     );

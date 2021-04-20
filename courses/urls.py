@@ -27,5 +27,7 @@ urlpatterns = [
     path('course/<pk>/delete/', CourseDeleteView.as_view(), name='course_delete'),
     path('course/module/<pk>/', ModuleDetailView.as_view(), name='module_detail'),
     path('api/', include(router.urls)),
+    # path('course/<pk>/', JSFrontView.as_view(), name='course_detail'),
+
 
 ]

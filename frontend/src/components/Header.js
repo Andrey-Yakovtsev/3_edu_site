@@ -10,8 +10,7 @@ import {
 import "bootstrap/dist/css/bootstrap.min.css";
 import React, {useEffect, useState} from "react";
 import axios from "axios";
-import {Link, BrowserRouter as Router, Switch, Route} from "react-router-dom";
-import CourseDetail from "./CourseDetail";
+import {Link, BrowserRouter as Router} from "react-router-dom";
 
 
 const Header = () => {
@@ -39,7 +38,7 @@ const Header = () => {
     }, [])
 
     return (
-        <Router>
+        // <Router>
             <Navbar bg="light" expand="lg">
                 <Navbar.Brand href="#home">Educational Platform</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -49,7 +48,7 @@ const Header = () => {
                         <NavDropdown title="Categories" id="basic-nav-dropdown">
                             {categories.map(category => (
                                 <NavDropdown.Item >
-                                    <Link to={{pathname: `/category/${category.id}/`, fromDashboard: false}}>
+                                    <Link to={{pathname: `/category/${category.id}/`, fromDashboard: false}} key={category.id}>
                                         {category.title}
                                     </Link>
                                 </NavDropdown.Item>
@@ -58,8 +57,8 @@ const Header = () => {
                         <NavDropdown title="Courses" id="basic-nav-dropdown">
                             {courses.map(course => (
                                 <NavDropdown.Item >
-                                    <Link to={{pathname: `/course/${course.id}/`, fromDashboard: false}}>
-                                        {course.title}
+                                    <Link  to={{pathname: `/course/${course.id}/`, fromDashboard: false}} key={course.id}>
+                                       {course.title}
                                     </Link>
                                 </NavDropdown.Item>
                             ))}
@@ -71,11 +70,7 @@ const Header = () => {
                     </Form>
                 </Navbar.Collapse>
             </Navbar>
-
-            {/*<Switch>*/}
-            {/*    <Route exact path='/course/${course.id}/' component={CourseDetail} />*/}
-            {/*</Switch>*/}
-        </Router>
+        // </Router>
     );
 }
 

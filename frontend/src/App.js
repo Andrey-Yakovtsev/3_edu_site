@@ -1,8 +1,8 @@
-import React, {useState, useEffect} from "react";
+
 import Header from "./components/Header";
 import CourseDetail from "./components/CourseDetail";
 import 'bootstrap/dist/css/bootstrap.min.css'
-import {Link, BrowserRouter as Router, Switch, Route} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route} from "react-router-dom";
 
 function App() {
 
@@ -10,10 +10,9 @@ function App() {
         <div className='container'>
 
             <Router>
+                <Header />
                 <Switch>
-                    <Header />
-                    <Route path='/course/:id' exact={CourseDetail} />
-                    <CourseDetail/>
+                    <Route path='/course/:id' exact component={CourseDetail} />
                 </Switch>
             </Router>
         </div>

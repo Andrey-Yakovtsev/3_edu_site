@@ -17,34 +17,12 @@ function CourseDetail({match}){
 
     return (
         <div>
-            {/*'Some string'*/}
-            These are {course.title} details:
+            These are <strong>{course.title}</strong> details:
             <p>Course ID: {course.id}</p>
             <p>Course description: {course.description}</p>
             <p>Course start date: {course.start_date}</p>
         </div>
     )
 }
-
-
-// function CourseDetail(){
-//
-//     const [course, setCourse] = useState([])
-//
-//     useEffect(() => {
-//         axios({
-//             method: 'GET',
-//             url: `http://127.0.0.1:8000/api/courses/2`
-//         }).then(response => {
-//             setCourse(response.data)
-//         })
-//     }, [])
-//
-//     return (
-//         <div>
-//             These are details of {course.title}
-//         </div>
-//     )
-// }
 
 export default CourseDetail;

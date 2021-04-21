@@ -38,13 +38,12 @@ const Header = () => {
     }, [])
 
     return (
-        // <Router>
             <Navbar bg="light" expand="lg">
                 <Navbar.Brand href="#home">Educational Platform</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="mr-auto">
-                        <Nav.Link href="#home">Home</Nav.Link>
+                        <Nav.Link href="/courses/">Our courses</Nav.Link>
                         <NavDropdown title="Categories" id="basic-nav-dropdown">
                             {categories.map(category => (
                                 <NavDropdown.Item >
@@ -70,7 +69,6 @@ const Header = () => {
                     </Form>
                 </Navbar.Collapse>
             </Navbar>
-        // </Router>
     );
 }
 

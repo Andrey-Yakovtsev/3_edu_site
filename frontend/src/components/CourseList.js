@@ -45,32 +45,32 @@ const CourseList = () => {
 
             {courses.map(course => (
                 <tr>
-                <td>
-                    {course.id}
-                </td>
                     <td>
-                <Link  to={{pathname: `/course/${course.id}/`, fromDashboard: false}} key={course.id}>
-                    {course.title}
-                </Link>
-                        </td>
+                        {course.id}
+                    </td>
                     <td>
-                    {course.description}
-                </td>
+                        <Link  to={{pathname: `/course/${course.id}/`, fromDashboard: false}} key={course.id}>
+                            {course.title}
+                        </Link>
+                    </td>
                     <td>
-                    {course.start_date}
-                </td>
+                        {course.description}
+                    </td>
                     <td>
-                    {course.end_date}
-                </td>
+                        {course.start_date}
+                    </td>
                     <td>
-                    <button> Join</button>
-                </td>
+                        {course.end_date}
+                    </td>
+                    <td>
+                        <button> Join</button>
+                    </td>
                 </tr>
             ))}
 
-      </tbody>
-</Table>
-);
+            </tbody>
+        </Table>
+    );
 }
 
 export default CourseList;

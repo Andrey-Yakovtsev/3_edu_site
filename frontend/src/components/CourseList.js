@@ -4,7 +4,7 @@ import {
     NavDropdown,
     Form,
     FormControl,
-    Button
+    Button, Table
 } from "react-bootstrap";
 
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -30,28 +30,47 @@ const CourseList = () => {
 
 
     return (
-        <table>
-            <th>
+        <Table striped bordered hover>
+            <thead>
+            <tr>
                 <td>ID</td>
                 <td>Title</td>
                 <td>Description</td>
                 <td>Start</td>
                 <td>End</td>
                 <td>Join</td>
-            </th>
-            <tr>
-                {/*{course.id}*/}
             </tr>
-            <tr>
-                {/*{courses.map(course => (*/}
-                {/*    <Link  to={{pathname: `/course/${course.id}/`, fromDashboard: false}} key={course.id}>*/}
-                {/*        {course.title}*/}
-                {/*    </Link>*/}
-                {/*))}*/}
+            </thead>
+            <tbody>
 
-            </tr>
-        </table>
-    );
+            {courses.map(course => (
+                <tr>
+                <td>
+                    {course.id}
+                </td>
+                    <td>
+                <Link  to={{pathname: `/course/${course.id}/`, fromDashboard: false}} key={course.id}>
+                    {course.title}
+                </Link>
+                        </td>
+                    <td>
+                    {course.description}
+                </td>
+                    <td>
+                    {course.start_date}
+                </td>
+                    <td>
+                    {course.end_date}
+                </td>
+                    <td>
+                    <button> Join</button>
+                </td>
+                </tr>
+            ))}
+
+      </tbody>
+</Table>
+);
 }
 
 export default CourseList;

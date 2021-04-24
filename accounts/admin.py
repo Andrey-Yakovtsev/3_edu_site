@@ -17,13 +17,6 @@ class MembershipInline(admin.TabularInline):
     extra = 0
 
 
-# class MembershipInline(admin.TabularInline):
-#     model = Teacher.course.through
-#     def get_queryset(self, request):
-#         qs = super(MembershipInline, self).get_queryset(request)
-#         return qs.prefetch_related('course')
-
-
 
 @admin.register(Student)
 class StudentAdmin(admin.ModelAdmin):
@@ -36,7 +29,8 @@ class StudentAdmin(admin.ModelAdmin):
 class TeacherAdmin(admin.ModelAdmin):
     def get_queryset(self, request):
         qs = super(TeacherAdmin, self).get_queryset(request)
-        return qs.prefetch_related('user')
+        # return qs.prefetch_related('user')
+        return qs.prefetch_related('memberships')
     inlines = [
         MembershipInline
     ]

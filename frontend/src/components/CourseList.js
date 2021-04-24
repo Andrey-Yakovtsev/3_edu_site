@@ -17,7 +17,6 @@ const CourseList = () => {
 
     const [courses, setCourses]  = useState([])
 
-
     useEffect(() => {
         axios({
             method: 'GET',
@@ -26,8 +25,6 @@ const CourseList = () => {
             setCourses(response.data)
         })
     }, [])
-
-
 
     return (
         <Table striped bordered hover>
